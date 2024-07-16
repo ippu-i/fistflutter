@@ -6,7 +6,7 @@
                 "Dart-Code.flutter"
             ],
             "settings": {
-              "dart.flutterSdkPath": "/home/vscode/flutter/bin"
+              "dart.flutterSdkPath": "/home/flutter/bin"
             }
         }
     }
