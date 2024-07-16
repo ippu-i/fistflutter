@@ -1,27 +1,20 @@
-#!/bin/bash
+#!/bin/bash エラーが発生した際スクリプトを終了するコマンド
 set -euxo pipefail
 
-# Flutter
-CHANNEL="stable" # or "beta"
-
-TAGS=$(gh api repos/flutter/flutter/git/refs/tags --paginate | jq -r '.[].ref' | sed 's/refs\/tags\///' | grep '^[0-9].*')
-
-## Search latest tag
-if [ "$CHANNEL" = "beta" ]; then
-    TARGET_TAG=$(echo "$TAGS" | grep '\.pre$' | sort -V | tail -n 1)
-elif [ "$CHANNEL" = "stable" ]; then
-    TARGET_TAG=$(echo "$TAGS" | grep -v '\.pre$' | sort -V | tail -n 1)
-else
-    echo "CHANNEL is invalid."
-    exit 1
-fi
-
 ## Install Flutter
-git clone https://github.com/flutter/flutter.git --depth 1 --branch "$TARGET_TAG" "$HOME/flutter"
+cd /workspaces/
+git clone https://github.com/flutter/flutter.git -b stable
 
-export PATH=$PATH:/home/codespace/flutter/bin/
+sudo apt-get update
+sudo apt-get install clang build-essential cmake ninja-build pkg-config gtk-3.0
+
+cd /workspaces/fistflutter/first_flutter/
 
 flutter --version
-
 flutter pub global activate melos
 flutter pub global activate grinder
+flutter pub get --no-example
+dart pub get --no-example
+
+exit 0
+

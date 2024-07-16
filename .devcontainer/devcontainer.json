@@ -1,4 +1,6 @@
 {
+  "image": "ghcr.io/cirruslabs/flutter:3.10.0-1.3.pre",
+  "forwardPorts": [3000],
 	"customizations": {
         "vscode": {
             "extensions": [
@@ -6,8 +8,14 @@
                 "Dart-Code.flutter"
             ],
             "settings": {
-              "dart.flutterSdkPath": "/home/flutter/bin"
+              "dart.flutterSdkPath": "/workspaces/flutter/bin/"
             }
         }
+    },
+    "containerEnv": {
+      "FLUTTER_HOME": "/workspaces/flutter/bin/"
+    },
+    "remoteEnv": {
+      "PATH": "${containerEnv:PATH}:${containerEnv:FLUTTER_HOME}:/root/.pub-cache/bin"
     }
 }
